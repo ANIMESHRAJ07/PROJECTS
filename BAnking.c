@@ -34,6 +34,34 @@ void saveTransactionsToFile();
 int count = 15;
 float interestRate = 0.05;
 
+
+struct fastpay {
+    unsigned long long accountNumber;
+    char UserName[50];
+    char Name[100];
+    char password[20];
+    float balance;
+    struct Transaction history[100];
+    int transactionCount;
+} on[MAX_ACCOUNTS] = {
+    {1001, "user1", "Alice Johnson", "password1", 1000.0, {}, 0},
+    {1002, "user2", "Bob Smith", "password2", 1500.0, {}, 0},
+    {1003, "user3", "Charlie Brown", "password3", 2000.0, {}, 0},
+    {1004, "user4", "Diana Prince", "password4", 2500.0, {}, 0},
+    {1005, "user5", "Evan Davis", "password5", 3000.0, {}, 0},
+    {1006, "user6", "Fiona Lewis", "password6", 3500.0, {}, 0},
+    {1007, "user7", "George Miller", "password7", 4000.0, {}, 0},
+    {1008, "user8", "Hannah White", "password8", 4500.0, {}, 0},
+    {1009, "user9", "Ian Clark", "password9", 5000.0, {}, 0},
+    {1010, "user10", "Jack Wilson", "password10", 5500.0, {}, 0},
+    {1011, "user11", "Karen Green", "password11", 6000.0, {}, 0},
+    {1012, "user12", "Liam King", "password12", 6500.0, {}, 0},
+    {1013, "user13", "Mia Adams", "password13", 7000.0, {}, 0},
+    {1014, "user14", "Noah Thompson", "password14", 7500.0, {}, 0},
+    {1015, "user15", "Olivia Hall", "password15", 8000.0, {}, 0}
+};
+
+
 struct Transaction {
     float amount;
     char type[10];
@@ -341,36 +369,6 @@ void saveTransactionsToFile() {
                 printf("Invalid choice. Please try again.\n");
         }
     }
-
-
-struct fastpay {
-    unsigned long long accountNumber;
-    char UserName[50];
-    char Name[100];
-    char password[20];
-    float balance;
-    struct Transaction history[100];
-    int transactionCount;
-} on[MAX_ACCOUNTS] = {
-    {1001, "user1", "Alice Johnson", "password1", 1000.0, {}, 0},
-    {1002, "user2", "Bob Smith", "password2", 1500.0, {}, 0},
-    {1003, "user3", "Charlie Brown", "password3", 2000.0, {}, 0},
-    {1004, "user4", "Diana Prince", "password4", 2500.0, {}, 0},
-    {1005, "user5", "Evan Davis", "password5", 3000.0, {}, 0},
-    {1006, "user6", "Fiona Lewis", "password6", 3500.0, {}, 0},
-    {1007, "user7", "George Miller", "password7", 4000.0, {}, 0},
-    {1008, "user8", "Hannah White", "password8", 4500.0, {}, 0},
-    {1009, "user9", "Ian Clark", "password9", 5000.0, {}, 0},
-    {1010, "user10", "Jack Wilson", "password10", 5500.0, {}, 0},
-    {1011, "user11", "Karen Green", "password11", 6000.0, {}, 0},
-    {1012, "user12", "Liam King", "password12", 6500.0, {}, 0},
-    {1013, "user13", "Mia Adams", "password13", 7000.0, {}, 0},
-    {1014, "user14", "Noah Thompson", "password14", 7500.0, {}, 0},
-    {1015, "user15", "Olivia Hall", "password15", 8000.0, {}, 0}
-};
-
-
-
 
 int main() {
     int ch;
