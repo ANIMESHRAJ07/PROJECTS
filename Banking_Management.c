@@ -25,6 +25,13 @@ void saveTransactionsToFile();
 int count = 15;
 float interestRate = 0.05;
 
+struct BankAccount {
+    char name[50];             
+    char accountnumber[20];
+    char email[50];            
+    float balance;             
+};
+
 struct Transaction {
     float amount;
     char type[10];
@@ -300,6 +307,24 @@ void saveTransactionsToFile() {
     fclose(file);
 }
 
+//shashwat 
+
+int ValidEmail(char email[]) 
+ {
+    int atSymbol= 0, dot = 0;
+
+    for (int i = 0; i < strlen(email); i++) {
+        if (email[i] == '@') {
+            atSymbol= 1;
+        }
+        if (atSymbol && email[i] == '.') {
+            dot= 1;
+            break;
+        }
+    }
+return atSymbol && dot;
+}
+
 // Main function
 int main() {
     srand(time(0));
@@ -312,27 +337,95 @@ int main() {
     unsigned long long accountNumber;
     unsigned long long fromAccount, toAccount;
     float amount;
+    float amount1;
+
+    struct BankAccount account; 
+    account.balance = 10000.0;  
+
+    int emailValid = 0;
 
     while (1) {
         printf("\nOnline Banking System\n");
-        printf("1. Create Account\n");
-        printf("2. View Account\n");
-        printf("3. Transfer Funds\n");
-        printf("4. View Transaction History\n");
-        printf("5. Exit\n");
+        printf("1. Account Creation Offline \n");
+        printf("2. Offline Money Deposit\n");
+        printf("3. Offline Withdraw\n");
+        printf("4. Offline Balance\n");
+        printf("5. Fast Pay Create Account\n");
+        printf("6. Fast Pay View Account\n");
+        printf("7. Fast Pay Transfer Funds\n");
+        printf("8. Fast Pay View Transaction History\n");
+        printf("9. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
+
             case 1:
-                createAccount();
-                break;
+                
+             printf("We are excited to have you onboard! To get started, please create an account.\n\n");
+
+    for (int i = 0; i < 120; i++) printf("-");
+    printf("\n|                                           Account Creation Menu                                                      |\n");
+    for (int i = 0; i < 120; i++) printf("-");
+    printf("\n\n");
+
+    printf("\nEnter your full name: ");
+    scanf("%49s", account.name); 
+
+    printf("\nEnter your account number: ");
+    scanf("%19s", account.accountnumber);
+
+    while (!emailValid) {
+        printf("\nEnter your email: ");
+        scanf("%49s", account.email); 
+        
+        if (ValidEmail(account.email)) {
+            emailValid = 1;
+        } else {
+            printf("Invalid email format. Please include '@' and '.' symbols in the correct order.\n");
+        }
+    }
+            break;
+
             case 2:
+                printf("\nEnter the amount you want to deposit: ");
+                scanf("%f", &amount1);
+
+                if (amount1 > 0 && amount1 <= 100000) {
+                    account.balance += amount1;
+                    printf("Amount successfully deposited!\n");
+                } else {
+                    printf("Invalid deposit amount. Please enter a value between 0 and 100,000.\n");
+                }
+                break;
+
+            case 3:
+                printf("\nEnter the amount you want to withdraw: ");
+                scanf("%f", &amount1);
+
+                if (amount1 > 0 && amount1 <= account.balance) {
+                    account.balance -= amount1;
+                    printf("Amount successfully withdrawn!\n");
+                } else if (amount1 > account.balance) {
+                    printf("Insufficient funds.\n");
+                } else {
+                    printf("Invalid withdrawal amount.\n");
+                }
+                break;
+
+            case 4:
+                printf("Current Balance: $%.2f\n", account.balance);
+                break;
+
+             case 5:
+             createAccount();
+             break;
+            case 6:
                 printf("Enter account number to view: ");
                 scanf("%llu", &accountNumber);
                 viewAccount(accountNumber);
                 break;
-            case 3:
+            case 7:
                 printf("Enter account number to transfer from: ");
                 scanf("%llu", &fromAccount);
                 printf("Enter account number to transfer to: ");
@@ -341,7 +434,7 @@ int main() {
                 scanf("%f", &amount);
                 transferFunds(fromAccount, toAccount, amount);
                 break;
-            case 4:
+            case 8:
                 printf("Enter account number to view transaction history: ");
                 scanf("%llu", &accountNumber);
                 for (int i = 0; i < count; i++) {
@@ -353,7 +446,7 @@ int main() {
                     }
                 }
                 break;
-            case 5:
+            case 9:
                 printf("Exiting...\n");
                 exit(0);
             default:
