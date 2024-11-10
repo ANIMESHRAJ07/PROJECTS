@@ -818,6 +818,8 @@ int main()
 
             l3:
             case 3: 
+         while(1)
+        {
             int p1;
             printf("11. Create Account\n");
             printf("22. View Account\n");
@@ -831,12 +833,12 @@ int main()
            {
                 case 11:
                 createAccount();
-                goto l3 ;
+                break;
                 case 22:
                 printf("Enter account number to view: ");
                 scanf("%llu", &accountNumber);
                 viewAccount(accountNumber);
-                goto l3;
+                break;
                 case 33:
                 printf("Enter account number to transfer from: ");
                 scanf("%llu", &fromAccount);
@@ -845,16 +847,18 @@ int main()
                 printf("Enter amount to transfer: ");
                 scanf("%f", &amount);
                 transferFunds(fromAccount, toAccount, amount);
-                goto l3;
+                break;
                 case 44:
                 printf("Enter account number to view transaction history: ");
                 scanf("%llu", &accountNumber);
                 for (int i = 0; i < count; i++) {
-                    if (on[i].accountNumber == accountNumber) {
-                        if (verifyPassword(i)) {
+                    if (on[i].accountNumber == accountNumber) 
+                    {
+                        if (verifyPassword(i)) 
+                        {
                             viewTransactionHistory(i);
                         }
-                        goto l3;
+                        //goto l3;
                     }
                 }
                 break;
@@ -862,12 +866,17 @@ int main()
                 printf("Exiting...\n");
                 exit(0);
                 case 66:
-                printf("Going Back To Main Menu..\n");
+                printf("Going Back To Main Menu..\n\n\n\n");
                 goto menu;
                 default:
                 printf("Invalid choice. Please try again.\n");
                 goto l3; 
-           }
+            }
+            printf("Press Enter to return to the menu: ");
+            getchar();
+            getchar();
+            printf("\n \n \n\n\n\n");
+        }
             case 4:
 
                 int i;
@@ -910,23 +919,24 @@ int main()
         {
             case 13:
                 viewAllStocks();
-                goto l4;
+                break;
             case 23:
                 searchForStock();
-                goto l4;
+                break;
             case 33:
                  convertStockPrice();
-                goto l4;
+                break;
             case 43:
                 printf("\nReturning to the main menu...\n");
-                goto l4;
+                goto menu;
             default:
                 printf("\nInvalid option! Please try again.\n");
                 goto l4;
         }
 
             printf("Press Enter to return to the main menu: ");
-            goto menu;
+            getchar();
+            getchar();
             printf("\n \n \n\n\n\n");
      }
             case 5: 
