@@ -188,6 +188,9 @@ void book_ticket() {
 
         if (!authenticate_upi(upi_id, pin)) {
             printf("Invalid UPI credentials!\n");
+            printf("\nPress Enter to return to the menu...");
+            getchar(); // Consume the newline character
+            getchar(); // Wait for user input
             return;
         }
 
@@ -215,6 +218,20 @@ void book_ticket() {
 
         printf("%d ticket(s) booked successfully!\n", num_tickets);
     } else {
+        printf("Entering Waiting List...\n");
+        printf("Available seats: %d\n", bus_node->bus.seats_available);
+        printf("Enter UPI ID: ");
+        scanf("%19s", upi_id);
+        printf("Enter UPI PIN: ");
+        scanf("%d", &pin);
+
+        if (!authenticate_upi(upi_id, pin)) {
+            printf("Invalid UPI credentials!\n");
+            printf("\nPress Enter to return to the menu...");
+            getchar(); // Consume the newline character
+            getchar(); // Wait for user input
+            return;
+        }
         printf("Not enough seats available. Adding to waiting list.\n");
         for (int i = 0; i < num_tickets; i++) {
             add_to_waiting_list(name, bus_id); // Add to waiting list
@@ -253,6 +270,9 @@ void cancel_ticket() {
 
     if (!authenticate_upi(upi_id, pin)) {
         printf("Invalid UPI credentials!\n");
+        printf("\nPress Enter to return to the menu...");
+        getchar(); // Consume the newline character
+        getchar(); // Wait for user input
         return;
     }
 
@@ -538,15 +558,15 @@ void menu() {
         strftime(current_time, sizeof(current_time), "%Y-%m-%d %H:%M:%S", t);
 
         // Display the menu header with the clock
-        printf("=========================================\n");
+        printf("===============================================\n");
         printf(" Bus Reservation System       %s\n", current_time);
-        printf("=========================================\n");
+        printf("===============================================\n");
         printf("1. Book Ticket\n");
         printf("2. Cancel Ticket\n");
         printf("3. Display Bus Schedule\n");
         printf("4. Show Seat Availability\n");
         printf("5. Exit\n");
-        printf("=========================================\n");
+        printf("==============================================\n");
         printf("Enter your choice (1-5): ");
         scanf("%d", &choice);
 
