@@ -527,40 +527,58 @@ WaitingList *remove_from_waiting_list(int bus_id) {
 void menu() {
     int choice;
 
-    // Initialize the bus schedule
-    initialize_bus_schedule();
-
-    // Initialize the bus list
-    initialize_bus_list();
-
     do {
-        printf("\nBus Reservation System\n");
+        // Clear the screen (system-specific)
+        system("cls"); // Use "clear" for Linux/Mac
+
+        // Display the real-time clock
+        time_t now = time(NULL);
+        struct tm *t = localtime(&now);
+        char current_time[20];
+        strftime(current_time, sizeof(current_time), "%Y-%m-%d %H:%M:%S", t);
+
+        // Display the menu header with the clock
+        printf("=========================================\n");
+        printf(" Bus Reservation System       %s\n", current_time);
+        printf("=========================================\n");
         printf("1. Book Ticket\n");
         printf("2. Cancel Ticket\n");
         printf("3. Display Bus Schedule\n");
         printf("4. Show Seat Availability\n");
         printf("5. Exit\n");
-        printf("Enter your choice: ");
+        printf("=========================================\n");
+        printf("Enter your choice (1-5): ");
         scanf("%d", &choice);
 
         switch (choice) {
             case 1:
+                printf("\n--- Book Ticket ---\n");
                 book_ticket();
                 break;
             case 2:
+                printf("\n--- Cancel Ticket ---\n");
                 cancel_ticket();
                 break;
             case 3:
+                printf("\n--- Bus Schedule ---\n");
                 display_bus_schedule();
                 break;
             case 4:
+                printf("\n--- Seat Availability ---\n");
                 display_seat_availability();
                 break;
             case 5:
-                printf("Exiting...\n");
+                printf("\nThank you for using the Bus Reservation System. Goodbye!\n");
                 break;
             default:
-                printf("Invalid choice! Try again.\n");
+                printf("\nInvalid choice! Please enter a number between 1 and 5.\n");
+        }
+
+        // Pause before refreshing the menu
+        if (choice != 5) {
+            printf("\nPress Enter to return to the menu...");
+            getchar(); // Consume the newline character
+            getchar(); // Wait for user input
         }
     } while (choice != 5);
 }
