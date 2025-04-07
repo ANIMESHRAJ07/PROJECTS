@@ -1,2 +1,0 @@
-Cancelled: animesh, Bus ID: 1006, Time: 2025-04-07 19:59:07
-Cancelled: d, Bus ID: 1001, Tickets: 5, Time: 2025-04-08 01:52:40
